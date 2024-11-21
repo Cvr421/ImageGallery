@@ -1,4 +1,4 @@
-import { ScrollView ,ActivityIndicator, FlatList, Image, StyleSheet, Text, View, Platform } from 'react-native'
+import { ScrollView ,ActivityIndicator, FlatList, Image, StyleSheet, Text, View, Platform, Pressable, Linking } from 'react-native'
 import React, { useEffect, useState } from 'react'
 // import { ScrollView } from 'react-native-gesture-handler';
 
@@ -66,7 +66,9 @@ const handleScrollmob = (event) => {
 //   return()=>window.removeEventListener("scroll", handleScroll)
 // },[])
 
-
+const handlepress=(item)=>{
+  Linking.openURL(item.url).catch((err) => console.error('Failed to open URL:', err));
+}
 
 
 return (
@@ -75,18 +77,23 @@ return (
   onScroll={Platform.OS==='web' ? (e)=> handleScroll(e):handleScrollmob}
   
   >
-    <Text style={styles.title}>Infinite scrolling: Nature Images</Text>
+    <Text style={styles.titles}>Infinite scrolling : Nature Images</Text>
     <FlatList
       data={images}
       keyExtractor={(item ) => item.id.toString()}
       numColumns={1}
       renderItem={({ item}) => (
-        <View key={item} style={styles.imageContainer}>
+        <View key={item.id} style={styles.imageContainer}>
+          <Text style={styles.title}>Creator: {item.photographer}</Text>
+          <Pressable onPress={()=>handlepress(item)}>
           <Image
             source={{ uri: item.src.large2x }}
             style={styles.image}
-            alt={item.alt}
-          />
+            alt={item.alt}/>
+          </Pressable>
+         
+            
+          
          
         </View>
       )}
@@ -102,12 +109,24 @@ export default index;
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+      backgroundColor:"#0A0A0A"
   },
   title: {
-    fontSize: 18,
+    fontSize: 12,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 5,
+    fontFamily:"fantasy",
+   color:"#FFFAFA"
   },
+
+  titles:{
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    fontFamily:"monospace",
+    color:"#F5FFFA"
+  },
+
   imageList: {
     display: 'flex',
     flexDirection: 'row',
@@ -115,7 +134,8 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   imageContainer: {
-    width: 400,
+    width: 350,
+   
     marginBottom: 20,
   },
   image: {
