@@ -40,6 +40,21 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+      name='signup'
+      options={{
+        title:'SignUp',
+        tabBarIcon:({color,size})=>(
+          <MaterialIcons name="app-registration" color="black" size={size} />
+        ),
+
+      }}
+      
+      
+      />
+
+     
+
     </Tabs>
   );
 }

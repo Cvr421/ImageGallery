@@ -78,6 +78,7 @@ return (
   
   >
     <Text style={styles.titles}>Infinite scrolling : Nature Images</Text>
+   
     <FlatList
       data={images}
       keyExtractor={(item ) => item.id.toString()}
@@ -98,6 +99,7 @@ return (
         </View>
       )}
       contentContainerStyle={styles.imageList}
+      
     />
     {Loading && <ActivityIndicator size="large" color="#0000ff" />}
   </ScrollView>
