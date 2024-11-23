@@ -15,7 +15,7 @@ const index = () => {
               `https://api.pexels.com/v1/search?query=nature&page=${page}&per_page=10`,
               {
                   headers: {
-                      Authorization: "nvrhHCuH8ePScYp7VYy9PTo0sH4cWlZVPN6rrvW48V8DOY1btAosQ9kf"
+                      Authorization: process.env.EXPO_PUBLIC_Auth
                   }
               }
           );

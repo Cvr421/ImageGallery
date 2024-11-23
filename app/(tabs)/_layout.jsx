@@ -1,11 +1,16 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
+// import { Provider } from 'react-redux';
+// import { store } from '../redux/store';
 import { Platform } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 export default function TabLayout() {
   // const colorScheme = useColorScheme();
   return (
+   
     <Tabs
+    
+    initialRouteName="signup" 
     screenOptions={{
       tabBarStyle: Platform.select({
         ios: {
@@ -21,6 +26,7 @@ export default function TabLayout() {
     
     
     >
+       
       <Tabs.Screen
         name="index"
         options={{
@@ -31,6 +37,7 @@ export default function TabLayout() {
           
         }}
       />
+      
       <Tabs.Screen
         name="profile"
         options={{
@@ -56,5 +63,6 @@ export default function TabLayout() {
      
 
     </Tabs>
+   
   );
 }
