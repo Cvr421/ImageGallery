@@ -77,7 +77,7 @@ return (
   onScroll={Platform.OS==='web' ? (e)=> handleScroll(e):handleScrollmob}
   
   >
-    <Text style={styles.titles}>Infinite scrolling : Nature Images</Text>
+    <Text style={styles.titles}>Pictures</Text>
    
     <FlatList
       data={images}
@@ -85,7 +85,7 @@ return (
       numColumns={1}
       renderItem={({ item}) => (
         <View key={item.id} style={styles.imageContainer}>
-          <Text style={styles.title}>Creator: {item.photographer}</Text>
+          <Text style={styles.title}>Creator: {item.photographer}                      Click to Download</Text>
           <Pressable onPress={()=>handlepress(item)}>
           <Image
             source={{ uri: item.src.large2x }}
