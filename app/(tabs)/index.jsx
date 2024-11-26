@@ -37,6 +37,7 @@ const index = () => {
 
   useEffect(()=>{
     fetchImage()
+    console.log("image data",images)
 },[page])
 
 
@@ -72,38 +73,76 @@ const handlepress=(item)=>{
 
 
 return (
-  <ScrollView style={styles.container}
+
+
+  <FlatList
+  style={styles.container}
+  data={images}
   
-  onScroll={Platform.OS==='web' ? (e)=> handleScroll(e):handleScrollmob}
-  
-  >
-    <Text style={styles.titles}>Pictures</Text>
+  keyExtractor={(item,index) => index.toString()}
+  numColumns={1}
+  renderItem={({ item , index}) => (
+    <View style={styles.imageContainer}>
+      <Text style={styles.title}>
+        Creator: {item.photographer}         Click to Download
+      </Text>
+      <Pressable onPress={() => handlepress(item)}>
+        <Image
+          source={{ uri: item.src.large2x }}
+          style={styles.image}
+          alt={item.alt}
+        />
+      </Pressable>
+    </View>
+  )}
+  contentContainerStyle={styles.imageList}
+  onScroll={
+    Platform.OS === 'web' ? (e) => handleScroll(e) : handleScrollmob
+  }
+  ListFooterComponent={
+    Loading && <ActivityIndicator size="large" color="#0000ff" />
+  }
+/>
+
+// Here FlatList is not supported in ScrollView On Android Device .  Becoz of nesting FlatList(which is a virtualizedList) inside a scrollView 
+
+  // <ScrollView style={styles.container}
+  // // scrollEnabled={false}
+  // onScroll={Platform.OS==='web' ? (e)=> handleScroll(e):handleScrollmob}
+ 
+  // >
+  //   <Text style={styles.titles}>Pictures</Text>
    
-    <FlatList
-      data={images}
-      keyExtractor={(item ) => item.id.toString()}
-      numColumns={1}
-      renderItem={({ item}) => (
-        <View key={item.id} style={styles.imageContainer}>
-          <Text style={styles.title}>Creator: {item.photographer}                      Click to Download</Text>
-          <Pressable onPress={()=>handlepress(item)}>
-          <Image
-            source={{ uri: item.src.large2x }}
-            style={styles.image}
-            alt={item.alt}/>
-          </Pressable>
+  //   <FlatList
+     
+     
+
+  //     data={images}
+  //     keyExtractor={(item ) => item.id.toString()}
+  //     numColumns={1}
+  //     renderItem={({ item}) => (
+  //       <View key={item.id} style={styles.imageContainer}>
+  //         <Text style={styles.title}>Creator: {item.photographer}                      Click to Download</Text>
+  //         <Pressable onPress={()=>handlepress(item)}>
+  //         <Image
+  //           source={{ uri: item.src.large2x }}
+  //           style={styles.image}
+  //           alt={item.alt}/>
+  //         </Pressable>
          
             
           
          
-        </View>
-      )}
-      contentContainerStyle={styles.imageList}
+  //       </View>
+  //     )}
+  //     contentContainerStyle={styles.imageList}
       
-    />
-    {Loading && <ActivityIndicator size="large" color="#0000ff" />}
-  </ScrollView>
+  //   />
+  //   {Loading && <ActivityIndicator size="large" color="#0000ff" />}
+  // </ScrollView>
 );
+
+
 }
 
 export default index;
@@ -136,7 +175,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   imageContainer: {
-    width: 350,
+    width: 320,
    
     marginBottom: 20,
   },
